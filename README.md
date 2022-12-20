@@ -17,8 +17,8 @@ Switch branches for another react native practice project:
 ## Screenshot:
 
 ### Portrait Orientation 
-<img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/h-start.jpg" width="400" height="217" />&nbsp;<img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/h-alert.jpg" width="400" height="217" />
-<img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/h-game.jpg" width="400" height="217" />&nbsp;<img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/h-over.jpg" width="400" height="217" />
+<img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/h-start.jpg" width="231" height="489" />&nbsp;<img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/h-alert.jpg" width="231" height="489" />
+<img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/h-game.jpg" width="231" height="489" />&nbsp;<img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/h-over.jpg" width="231" height="489" />
 
 ### Landscape Orientation 
 <img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/v-start.jpg" width="400" height="217" />&nbsp;<img src="https://github.com/peterndta/react-native-practice/blob/mini-game-app/Screenshot/v-game.jpg" width="400" height="217" />
