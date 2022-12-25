@@ -9,6 +9,7 @@ Switch branches for another react native practice project:
 - Use and extract params to get data (react-navigation)
 - Add extra icon button in header
 - Nested Navigator
+- Context API and Redux
 
 #### Reference: 
 *Udemy Course: "React Native - The Practical Guide [2023]", [Course Link Here](https://www.udemy.com/course/react-native-the-practical-guide/).*
