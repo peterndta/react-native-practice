@@ -1,10 +1,10 @@
 import React, { useContext, useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
-import Button from "../components/UI/Button";
 import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/styles";
 import { ExpensesContext } from "../store/expenses-context";
+import { storeExpense } from "../utils/http";
 
 const ManageExpense = ({ route, navigation }) => {
   const expensesContext = useContext(ExpensesContext);
@@ -31,11 +31,12 @@ const ManageExpense = ({ route, navigation }) => {
     navigation.goBack();
   }
 
-  function confirmHandler(expenseData) {
+  async function confirmHandler(expenseData) {
     if (isEditing) {
       expensesContext.updateExpense(editedExpenseId, expenseData);
     } else {
-      expensesContext.addExpense(expenseData);
+      const id = await storeExpense(expenseData); // lấy id trả về sau khi POST trên FireBase
+      expensesContext.addExpense({...expenseData, id: id}); // gửi ID xuống context 
     }
     navigation.goBack();
   }

@@ -1,56 +1,31 @@
 import { createContext, useReducer } from "react";
 
-const DUMMY_EXPENSES = [
-  {
-    id: "e1",
-    description: "A sjpese",
-    amount: 59.59,
-    date: new Date("2021-12-19"),
-  },
-  {
-    id: "e2",
-    description: "A shjoese",
-    amount: 89.29,
-    date: new Date("2021-01-21"),
-  },
-  {
-    id: "e3",
-    description: "A badede",
-    amount: 14.9,
-    date: new Date("2021-02-01"),
-  },
-  {
-    id: "e4",
-    description: "A badede",
-    amount: 14.9,
-    date: new Date("2021-02-01"),
-  },
-  {
-    id: "e5",
-    description: "A badede",
-    amount: 14.9,
-    date: new Date("2021-02-01"),
-  },
-  {
-    id: "e6",
-    description: "A DED",
-    amount: 14.9,
-    date: new Date("2022-12-27"),
-  },
-];
-
 export const ExpensesContext = createContext({
   expenses: [],
   addExpense: ({ description, amount, date }) => {},
+  setExpenses: (expenses) => {},
   deleteExpense: (id) => {},
   updateExpense: (id, { description, amount, date }) => {},
 });
 
 function expensesReducer(state, action) {
+  //action.payload là data dc truyền vào
+  //state là array đang hiện có
+
   switch (action.type) {
     case "ADD":
-      const id = new Date().toString() + Math.random().toString();
-      return [{ ...action.payload, id: id }, ...state];
+      // code dummy data----------------
+      // const id = new Date().toString() + Math.random().toString(); // ID tự gán k áp dụng với trường hợp có ID từ BE
+      // return [{ ...action.payload, id: id }, ...state];
+      //---------------------------
+
+      return [action.payload, ...state];
+
+      return;
+    case "SET":
+      const inverted = action.payload.reverese(); // đảo array vì firebase lưu data ngược
+      return inverted;
+    // return action.payload;
     case "UPDATE":
       const updatableExpenseIndex = state.findIndex(
         (expense) => expense.id === action.payload.id
@@ -68,10 +43,14 @@ function expensesReducer(state, action) {
 }
 
 function ExpensesContextProvider({ children }) {
-  const [expensesState, dispatch] = useReducer(expensesReducer, DUMMY_EXPENSES);
+  const [expensesState, dispatch] = useReducer(expensesReducer, []);
 
   function addExpense(expenseData) {
     dispatch({ type: "ADD", payload: expenseData });
+  }
+
+  function setExpenses(expenses) {
+    dispatch({ type: "SET", payload: expenses });
   }
 
   function deleteExpense(id) {
@@ -84,6 +63,7 @@ function ExpensesContextProvider({ children }) {
 
   const value = {
     expenses: expensesState,
+    setExpenses: setExpenses,
     addExpense: addExpense,
     deleteExpense: deleteExpense,
     updateExpense: updateExpense,
