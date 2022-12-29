@@ -1,12 +1,14 @@
-import React, { useContext, useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 import IconButton from "../components/UI/IconButton";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
 import { ExpensesContext } from "../store/expenses-context";
 import { storeExpense, updateExpense, deleteExpense } from "../utils/http";
 
 const ManageExpense = ({ route, navigation }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const expensesContext = useContext(ExpensesContext);
 
   const editedExpenseId = route.params?.expenseId;
@@ -23,7 +25,9 @@ const ManageExpense = ({ route, navigation }) => {
   }, [navigation, isEditing]);
 
   async function deleteExpense() {
+    setIsSubmitting(true); // set Load
     await deleteExpense(editedExpenseId);
+    // setIsSubmitting(false); // Vì ở dưới có goBack nên k cần set false nữa
     expensesContext.deleteExpense(editedExpenseId);
     navigation.goBack();
   }
@@ -33,6 +37,7 @@ const ManageExpense = ({ route, navigation }) => {
   }
 
   async function confirmHandler(expenseData) {
+    setIsSubmitting(true); // set Load
     if (isEditing) {
       expensesContext.updateExpense(editedExpenseId, expenseData);
       await updateExpense(editedExpenseId, expenseData);
@@ -41,6 +46,10 @@ const ManageExpense = ({ route, navigation }) => {
       expensesContext.addExpense({ ...expenseData, id: id }); // gửi ID xuống context
     }
     navigation.goBack();
+  }
+
+  if (isSubmitting) {
+    return <LoadingOverlay />;
   }
 
   return (
