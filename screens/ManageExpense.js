@@ -4,7 +4,7 @@ import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/styles";
 import { ExpensesContext } from "../store/expenses-context";
-import { storeExpense } from "../utils/http";
+import { storeExpense, updateExpense, deleteExpense } from "../utils/http";
 
 const ManageExpense = ({ route, navigation }) => {
   const expensesContext = useContext(ExpensesContext);
@@ -22,7 +22,8 @@ const ManageExpense = ({ route, navigation }) => {
     });
   }, [navigation, isEditing]);
 
-  function deleteExpense() {
+  async function deleteExpense() {
+    await deleteExpense(editedExpenseId);
     expensesContext.deleteExpense(editedExpenseId);
     navigation.goBack();
   }
@@ -34,9 +35,10 @@ const ManageExpense = ({ route, navigation }) => {
   async function confirmHandler(expenseData) {
     if (isEditing) {
       expensesContext.updateExpense(editedExpenseId, expenseData);
+      await updateExpense(editedExpenseId, expenseData);
     } else {
       const id = await storeExpense(expenseData); // lấy id trả về sau khi POST trên FireBase
-      expensesContext.addExpense({...expenseData, id: id}); // gửi ID xuống context 
+      expensesContext.addExpense({ ...expenseData, id: id }); // gửi ID xuống context
     }
     navigation.goBack();
   }
