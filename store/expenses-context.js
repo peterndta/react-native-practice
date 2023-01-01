@@ -23,7 +23,7 @@ function expensesReducer(state, action) {
 
       return;
     case "SET":
-      const inverted = action.payload.reverese(); // đảo array vì firebase lưu data ngược
+      const inverted = action.payload.reverse(); // đảo array vì firebase lưu data ngược
       return inverted;
     // return action.payload;
     case "UPDATE":

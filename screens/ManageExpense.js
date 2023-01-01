@@ -27,13 +27,14 @@ const ManageExpense = ({ route, navigation }) => {
     });
   }, [navigation, isEditing]);
 
-  async function deleteExpense() {
+  async function deleteExpenseHandler() {
     setIsSubmitting(true); // set Load
     try {
       await deleteExpense(editedExpenseId);
       expensesContext.deleteExpense(editedExpenseId);
       navigation.goBack();
     } catch (error) {
+      console.log(error);
       setError("Could not delete expense - Please try again");
       setIsSubmitting(false);
     }
@@ -86,7 +87,7 @@ const ManageExpense = ({ route, navigation }) => {
             icon="trash"
             color={GlobalStyles.colors.error500}
             size={36}
-            onPress={deleteExpense}
+            onPress={deleteExpenseHandler}
           />
         </View>
       )}
